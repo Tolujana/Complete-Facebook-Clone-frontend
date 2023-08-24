@@ -1,0 +1,99 @@
+.leftBar {
+  flex: 2;
+  height: calc(100vh - 50px);
+  overflow-y: scroll;
+  position: sticky;
+  top: 50px;
+  margin: 0;
+}
+.leftWrapper {
+  min-width: 300px;
+}
+
+.leftBar::-webkit-scrollbar {
+  width: 16px;
+  padding: 5px;
+}
+.leftBar::-webkit-scrollbar-track {
+  background-color: none;
+  border: 0px 5px;
+}
+
+.leftBar::-webkit-scrollbar-track:hover {
+  background-color: #f1f1f1;
+  border: 0px 5px;
+}
+
+.leftBar::-webkit-scrollbar-thumb {
+  background-color: #f1f1f1;
+  border: 5px solid transparent;
+  border-radius: 16px;
+  background-clip: content-box;
+}
+.leftBar::-webkit-scrollbar-thumb:hover {
+  background-color: grey;
+  border: 5px solid transparent;
+  border-radius: 16px;
+  background-clip: content-box;
+}
+.leftWrapper {
+  padding: 20px;
+}
+.leftmenu {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.leftListItems {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+.listICon {
+  margin-right: 10px;
+}
+.leftbarButton {
+  width: fit-content;
+  align-items: center;
+  color: white;
+  padding: 8px;
+  margin: 2px;
+  border-radius: 8px;
+  background-color: #1877f2;
+  border: none;
+  width: 150px;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: 700;
+}
+.leftbarHr {
+  margin: 20px 0;
+}
+
+.leftbarFriendsList {
+  list-style: none;
+  padding: 0;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+@media screen and (max-width: 1000px) {
+  .leftWrapper span {
+    display: none;
+  }
+  .leftbarButton {
+    display: none;
+  }
+  .leftWrapper {
+    max-width: 7vw;
+  }
+  .leftBar {
+    max-width: 7vw;
+  }
+}
+@media screen and (max-width: 700px) {
+  .leftBar {
+    display: none;
+  }
+}

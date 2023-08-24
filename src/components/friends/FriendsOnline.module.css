@@ -1,0 +1,48 @@
+.friendsInfo {
+  position: relative;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 5px;
+}
+ul {
+  width: 100%;
+}
+
+.FriendsOnline:hover {
+  background-color: whitesmoke;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 3px;
+}
+.profileImgContainer {
+  position: relative;
+  width: 45px;
+}
+.friendsPics {
+  width: 35px;
+  border-radius: 50%;
+  height: 35px;
+  object-fit: cover;
+}
+.friendsInfo {
+}
+.online {
+  background-color: limegreen;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  position: absolute;
+  top: 26px;
+  right: 10px;
+}
+
+.friendsName {
+  font-weight: 500;
+}
+.none {
+  display: none;
+}

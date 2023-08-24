@@ -1,0 +1,161 @@
+.share {
+  /* margin: 0px 20px; */
+  width: 100%;
+  position: relative;
+}
+
+.shareModal {
+  height: 315px;
+  position: absolute;
+  background-color: #fff;
+  width: 100%;
+  top: -100px;
+}
+.shareWrapper {
+  /* width: 82%; */
+  height: 112px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 15px -8px rgba(0, 0, 0, 0.37);
+  box-shadow: 0px 0px 15px -8px rgba(0, 0, 0, 0.37);
+  padding: 12px 16px 10px;
+  margin-bottom: 16px;
+  background: white;
+}
+.chatImg {
+  height: 40px;
+  max-width: 80%;
+  border-radius: 50%;
+  object-fit: cover;
+
+  /* margin-right: 10px; */
+}
+.sharepics {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 4px;
+}
+.shareTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.shareButton {
+  border: none;
+  width: 84%;
+  font-size: 20px;
+  border-radius: 20px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  background-color: var(--color-secondary);
+}
+.shareButton:hover {
+  background: #e2e1e1;
+}
+.shareButton:hover > input {
+  background: #e2e1e1;
+}
+.shareInput {
+  margin-left: 5px;
+  border: none;
+  width: 100%;
+  font-size: 20px;
+  background-color: var(--color-secondary);
+}
+.shareInput:focus {
+  outline: none;
+}
+.shareHr {
+  height: 1px;
+  background-color: var(--color-secondary);
+  border: none;
+}
+.shareButtom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.shareOption {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 8px;
+  border-radius: 8px;
+  justify-content: center;
+  /* margin-right: 15px; */
+  cursor: pointer;
+}
+
+.mainButton:hover {
+  background-color: #145a06;
+}
+.shareOption:hover {
+  background-color: var(--color-secondary);
+}
+.shareOptionText {
+  font-size: 15px;
+}
+.shareOptions {
+  display: flex;
+
+  justify-content: space-around;
+  cursor: pointer;
+}
+
+.shareIcon {
+  font-size: 20px;
+  margin-right: 5px;
+}
+.chat {
+  padding: 10px;
+  margin-bottom: 16px;
+  display: flex;
+  background: white;
+  /* width: 82%; */
+  align-items: center;
+  border-radius: 14px;
+  -webkit-box-shadow: 0px 0px 15px -8px rgba(0, 0, 0, 0.37);
+  box-shadow: 0px 0px 15px -8px rgba(0, 0, 0, 0.37);
+}
+
+.chatButton {
+  display: flex;
+  padding: 5px 8px;
+  margin-right: 15px;
+  align-items: center;
+  border-radius: 24px;
+  justify-content: center;
+  font-size: 15px;
+  border: solid;
+  border-color: #cecece;
+}
+.chatButton:hover {
+  background-color: #cecece;
+}
+.friends {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.chatText {
+  font-size: 15px;
+}
+.chatIcon {
+  margin-right: 8px;
+}
+.likesCounter {
+  margin-left: 15px;
+}
+.imgContainer {
+  /* margin-righ; */
+  width: 50px;
+}
+.green {
+  display: flex;
+  background: green;
+  color: white;
+  justify-content: center;
+}

@@ -1,0 +1,156 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.profileRightBottom {
+  /* max-width: 892px; */
+  display: flex;
+  justify-content: center;
+}
+.profileCoverImg {
+  width: 940px;
+  height: 348px;
+  object-fit: cover;
+  /* justify-self: center; */
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.profileRight {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  background-image: linear-gradient(360deg, white 55%, darkblue);
+}
+.profileRightTop {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.profileImg {
+  width: 168px;
+  height: 168px;
+  border-radius: 50%;
+  position: absolute;
+  border: 4px solid white;
+  bottom: 6%;
+  left: 5%;
+  object-fit: cover;
+}
+.profileCover {
+  width: 948px;
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  justify-content: center;
+}
+.profileName {
+  font-size: 2em;
+  /* justify-self: flex-start; */
+}
+.profileInfo {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+}
+.profileInfos {
+  display: flex;
+  align-items: center;
+  width: 948px;
+  justify-content: space-between;
+  height: 148px;
+}
+.profileButtons {
+  flex: 3;
+  display: flex;
+  justify-content: end;
+  align-items: flex-end;
+  height: 100%;
+  gap: 0.6rem;
+}
+.imaged {
+  flex: 1.5;
+}
+.firstAction,
+.secondAction,
+.confirmButton,
+.deleteButton {
+  display: flex;
+  width: fit-content;
+  min-width: 100px;
+  min-height: 26px;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 16px;
+  margin: 2px;
+  border-radius: 6px;
+  background-color: #1877f2;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.secondAction,
+.deleteButton {
+  color: black;
+  background-color: var(--color-lightgrey);
+}
+
+.secondAction:hover,
+.deleteButton:hover {
+  background-color: var(--color-darkgrey);
+}
+.dividingline {
+  margin: 10px;
+  padding: 1px;
+  width: 948px;
+}
+.profileMenu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 648px;
+}
+.imaged {
+  position: relative;
+  height: 100%;
+}
+
+.editbutton {
+  border: 1px solid rgb(175, 172, 172);
+  background-color: var(--main);
+  border-radius: 4px;
+  padding: 4px;
+  color: white;
+  width: fit-content;
+  cursor: pointer;
+  position: absolute;
+  right: 2%;
+  bottom: 15%;
+  background-color: rgb(116, 161, 228);
+}
+
+.none {
+  display: none;
+}
+.friendRequest {
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  height: 4rem;
+  background-color: var(--color-darkgrey);
+}
+.requestButton {
+  display: flex;
+  align-items: center;
+
+  gap: 0.6rem;
+}
+.requestInfo,
+.requestButton {
+  padding: 0 1rem;
+}
