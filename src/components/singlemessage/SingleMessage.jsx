@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 import { AuthContext } from "../../context/AuthContext";
 // import e from 'cors';
 import Message from "../message/Message";
-const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+const PF = process.env.REACT_APP_IMAGES_FOLDER;
 const NOIMAGE = process.env.REACT_APP_NO_IMAGE;
 
 const SingleMessage = ({ user }) => {

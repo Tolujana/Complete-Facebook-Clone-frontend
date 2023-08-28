@@ -8,7 +8,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { sharePost } from "../../utils/shareServices";
 import { openPopupDialog } from "../../utils/generalServices";
 
-const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+const PF = process.env.REACT_APP_IMAGES_FOLDER;
 const NOIMAGE = process.env.REACT_APP_NO_IMAGE;
 
 function Share() {

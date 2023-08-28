@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../context/AuthContext';
-import { SingleMessage } from '../messenger/Messenger';
-import styles from './FriendsOnline.module.css';
-const Folder = process.env.REACT_APP_PUBLIC_FOLDER;
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { SingleMessage } from "../messenger/Messenger";
+import styles from "./FriendsOnline.module.css";
+const Folder = process.env.REACT_APP_IMAGES_FOLDER;
 export const FriendsOnline = ({ user }) => {
   //const [chat, setChat] = useState(false);
   const { dispatch, chats, messages } = useContext(AuthContext);
@@ -13,7 +13,7 @@ export const FriendsOnline = ({ user }) => {
       // !chats?.includes(user)
       //|| messages.some((message) => message.receiverId === user._id)
     ) {
-      dispatch({ type: 'CHAT_START', payload: user });
+      dispatch({ type: "CHAT_START", payload: user });
     }
   };
 
@@ -24,9 +24,7 @@ export const FriendsOnline = ({ user }) => {
           <div className={styles.profileImgContainer}>
             <img
               src={
-                user.profilePicture
-                  ? Folder + '/' + user.profilePicture
-                  : Folder + '/noimage.png'
+                user.profilePicture ? Folder + "/" + user.profilePicture : Folder + "/noimage.png"
               }
               alt=""
               className={styles.friendsPics}

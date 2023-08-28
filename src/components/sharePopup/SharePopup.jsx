@@ -5,7 +5,7 @@ import { axiosInstance } from "../../proxySettings";
 import DisplayData from "../display/DisplayData";
 import { handleFiles, processDragNDrop, uploadData } from "../../utils/generalServices";
 
-const PublicFolder = process.env.REACT_APP_PUBLIC_FOLDER;
+const PublicFolder = process.env.REACT_APP_IMAGES_FOLDER;
 const NOIMAGE = process.env.REACT_APP_NO_IMAGE;
 const SharePopup = () => {
   const { user } = useContext(AuthContext);

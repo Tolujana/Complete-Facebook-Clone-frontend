@@ -2,7 +2,7 @@ import React from "react";
 
 import { format } from "timeago.js";
 import style from "./message.module.css";
-const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+const PF = process.env.REACT_APP_IMAGES_FOLDER;
 const Message = ({ message, img, createdAt, owner, ref }) => {
   return owner ? (
     <div className={style.own} ref={ref}>

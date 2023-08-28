@@ -7,7 +7,7 @@ import MoreMenu from "../moreMenu/MoreMenu";
 import GroupIcon from "@mui/icons-material/Group";
 import { Users } from "../../dummyData";
 import { FriendsOnline } from "../friends/FriendsOnline";
-const Folder = process.env.REACT_APP_PUBLIC_FOLDER;
+const Folder = process.env.REACT_APP_IMAGES_FOLDER;
 
 function Rightbar() {
   return (

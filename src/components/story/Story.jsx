@@ -5,7 +5,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { removeButton, currentElement } from "../../utils/storyServices";
 let scrollAmount = 0;
-const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
+const PUBLIC_FOLDER = process.env.REACT_APP_IMAGES_FOLDER;
 const Story = () => {
   const stories = useRef();
   const [scrollState, setScrollState] = useState();

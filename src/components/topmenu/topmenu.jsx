@@ -19,7 +19,7 @@ import { axiosInstance } from "../../proxySettings";
 function Topmenu() {
   const { user, dispatch, chats, messages, socket: savedSocket } = useContext(AuthContext);
   const socket = useRef();
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const PF = process.env.REACT_APP_IMAGES_FOLDER;
   const NOIMAGE = process.env.REACT_APP_NO_IMAGE;
   const [showMessenger, setShowMessenger] = useState(false);
   const [showFriendRequest, setShowFriendRequest] = useState(false);
