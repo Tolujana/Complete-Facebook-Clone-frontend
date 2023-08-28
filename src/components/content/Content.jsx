@@ -23,6 +23,7 @@ function Content({ username }) {
       return new Date(p2.createdAt) - new Date(p1.createdAt);
     });
     setPost((oldPost) => [...oldPost, ...sortedPost]);
+    console.log(posts)
   };
 
   const loadmore = (e) => {
