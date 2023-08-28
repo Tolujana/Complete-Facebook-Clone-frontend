@@ -12,9 +12,9 @@ export const FriendRequestItem = ({ userid, handleClickUp }) => {
   useEffect(() => {
     const fetchUser = async () => {
       // const res = await axiosInstance.get(`/users?userId=${userid}`);
-      const friendRequest = await axiosInstance.get(`/users/friendrequests/${currentUser._id}`);
+      const friendRequest = await axiosInstance.get(`/users/friendrequests/${user._id}`);
 
-      setRequest(friendRequest.data);
+      setFriendRequest(friendRequest.data);
     };
     fetchUser();
   }, [userid]);
