@@ -23,9 +23,9 @@ function Content({ username }) {
       return new Date(p2.createdAt) - new Date(p1.createdAt);
     });
     setPost((oldPost) => [...oldPost, ...sortedPost]);
-    console.log(posts)
+    
   };
-
+console.log("see post", posts)
   const loadmore = (e) => {
     const scrollHeight = e.target.documentElement.scrollHeight;
     const scrollTop = e.target.documentElement.scrollTop;
