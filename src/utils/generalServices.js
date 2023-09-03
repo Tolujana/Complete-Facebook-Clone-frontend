@@ -59,7 +59,7 @@ export const uploadData = async (uri, uploadFiles, newPost = "") => {
   try {
     const res = await axiosInstance.post(`${uri}`, newPost);
 
-    window.location.reload();
+    window.location.reload(true);
   } catch (error) {
     console.log(error);
   }
