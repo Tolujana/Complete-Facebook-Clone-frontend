@@ -1,33 +1,47 @@
 import React, { useContext, useState } from "react";
 import styles from "./storyeditor.module.css";
 import Topmenu from "../topmenu/topmenu";
-import { handleFiles, processDragNDrop } from "../../utils/generalServices";
+import {
+  handleFiles,
+  handleUploadedFiles,
+  processDragNDrop,
+  uploadtoServer,
+} from "../../utils/generalServices";
 import { AuthContext } from "../../context/AuthContext";
+import { LinearProgress } from "@mui/material";
 
 const StoryEditor = () => {
   const [isDragActive, setDragActive] = useState(false);
   const [uploadData, setUPloadData] = useState(null);
   const [files, setFiles] = useState("");
   const { user } = useContext(AuthContext);
+  const [isLoading, setisLoading] = useState(false);
   const handleFileUpload = (event) => {
     const dropActive = event.type === "drop" ? true : false;
     const files = dropActive ? event.dataTransfer.files : event.target.files;
     const [fileNames, data, filesArray, errorMessage] = handleFiles(files, dropActive);
 
-    setFiles(filesArray);
+    setFiles(files);
     setDragActive(true);
-    setUPloadData(data);
-    console.log(event);
+    setUPloadData(filesArray);
   };
 
-  const newStory = {
-    userId: user._id,
-    files: files,
+  const uploadStory = async () => {
+    setisLoading(true);
+    const [firebaseUrl] = await handleUploadedFiles(files, "stories");
+    setisLoading(false);
+    const newStory = {
+      userId: user._id,
+      file: firebaseUrl[0],
+    };
+
+    uploadtoServer("/users/story", newStory);
   };
   return (
     <>
       <Topmenu />
       <div className={styles.storyEditor}>
+        {}
         <div className={styles.leftmenu}>
           <div className={styles.bottom}>
             <h1 className={styles.title}>Your Story</h1>
@@ -36,14 +50,11 @@ const StoryEditor = () => {
           {isDragActive && (
             <div className={styles.createStory}>
               <button className={styles.discard}>Discard</button>
-              <button
-                onclick={(e) => {
-                  uploadData("user/story", uploadData, newStory);
-                }}
-                className={styles.shareStory}
-              >
-                Share to Story
-              </button>
+              {!isLoading && (
+                <button onClick={uploadStory} className={styles.shareStory}>
+                  Share to Story
+                </button>
+              )}
             </div>
           )}
         </div>
@@ -59,7 +70,6 @@ const StoryEditor = () => {
                 className={styles.fileUpload}
                 onChange={handleFileUpload}
               />
-
               <label
                 htmlFor="fileInput"
                 className={styles.uploadimage}
@@ -79,13 +89,22 @@ const StoryEditor = () => {
               >
                 <div> Create a Photo story</div>
               </label>
-
               <div className={styles.addtext}>Create a Text Story</div>
             </div>
           ) : (
             <div className={styles.story}>
               <div className={styles.storyImageContainer}>
-                <img src={URL.createObjectURL(files[0])} alt="" className={styles.storyImage} />
+                {!isLoading && (
+                  <LinearProgress
+                    size="20%"
+                    style={{ position: "absolute", top: "50%", bottom: "50%" }}
+                  />
+                )}
+                <img
+                  src={URL.createObjectURL(uploadData[0])}
+                  alt=""
+                  className={styles.storyImage}
+                />
               </div>
             </div>
           )}
