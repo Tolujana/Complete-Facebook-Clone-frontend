@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import { axiosInstance } from "../proxySettings";
 import axios from "axios";
+import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
+import { storage } from "./firebase";
 
 const baseURL = "http://localhost:8800/api";
 export const openPopupDialog = (action, dispatch) => {
@@ -50,7 +52,7 @@ export const confirmFriend = (userId, currentUser, dispatch, setButtonText = nul
   }
 };
 
-export const uploadData = async (uri, uploadFiles, newPost = "") => {
+export const uploadDatas = async (uri, uploadFiles, newPost = "") => {
   try {
     const response = await axiosInstance.post("/upload", uploadFiles);
     console.log(response);
@@ -65,23 +67,58 @@ export const uploadData = async (uri, uploadFiles, newPost = "") => {
   }
 };
 
-export const uploadtoServer = async (uri, uploadFiles, newPost = "", method = "put") => {
-  const url = baseURL + uri;
-  let response;
+export const uploadData = async (uri, newPost = "") => {
   try {
-    response = await axiosInstance.post("/upload", uploadFiles);
-  } catch (error) {}
-
-  try {
-    if (response.status === 200) {
-      const res = makeAPIRequest(url, method, newPost);
-    }
-
-    window.location.reload();
+    const res = await axiosInstance.post(`${uri}`, newPost);
+    console.log(res);
+    // if (res.status == 200) document.location.reload();
   } catch (error) {
     console.log(error);
   }
 };
+
+export const uploadtoServer = async (uri, body = "", method = "put") => {
+  const url = baseURL + uri;
+
+  try {
+    makeAPIRequest(url, method, body);
+
+    // window.location.reload();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// export const uploadImages = async (event, uri, uploadFiles, newPost = "", method = "put") => {
+//   const url = baseURL + uri;
+//   const imageRef = ref(storage, "image");
+
+//   const dropActive = event.type === "drop" ? true : false;
+//   const files = dropActive ? event.dataTransfer.files : event.target.files;
+//   uploadBytes(imageRef);
+
+//   const [fileNames, data, filesArray, errorMessage] = handleFiles(files, dropActive);
+//   console.log(event);
+//   setFileNames(fileNames);
+//   setUploadFiles(data);
+//   setDisplayData(filesArray);
+//   setError(errorMessage);
+
+//   let response;
+//   try {
+//     response = await axiosInstance.post("/upload", uploadFiles);
+//   } catch (error) {}
+
+//   try {
+//     if (response.status === 200) {
+//       const res = makeAPIRequest(url, method, newPost);
+//     }
+
+//     window.location.reload();
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 const checkFileIsValid = (files) => {
   const check = !Object.values(files).some((file) => {
@@ -119,6 +156,7 @@ export const processDragNDrop = (event, setDragActive, handleFileUpload = null) 
     setDragActive(false);
   }
   if (event.type === "drop") {
+    // uploadImages(event);
     handleFileUpload(event, true);
   }
 };
@@ -148,5 +186,35 @@ const makeAPIRequest = async (url, method, data) => {
     })
     .catch((error) => {
       console.error("Error:", error);
+    });
+};
+export const handleUploadedFiles = async (files, folderName = "files") => {
+  let urls = [];
+  const numberOfFiles = files.length;
+
+  if (numberOfFiles == 1) {
+    await firebaseFileUpload(files[0], urls, folderName);
+  } else {
+    for (let index = 0; index < numberOfFiles; index++) {
+      await firebaseFileUpload(files[index], urls, folderName);
+    }
+  }
+
+  return [urls, numberOfFiles];
+};
+export const firebaseFileUpload = async (file, urls, folderName) => {
+  const imageRef = ref(storage, `/${folderName}/${file.name}`);
+  const result = await uploadBytes(imageRef, file)
+    .then(
+      await getDownloadURL(imageRef)
+        .then((url) => {
+          urls.push(url);
+        })
+        .catch((error) => {
+          console.log(error.message, "error getting url");
+        })
+    )
+    .catch((error) => {
+      console.log(error.message, "error uploading");
     });
 };
