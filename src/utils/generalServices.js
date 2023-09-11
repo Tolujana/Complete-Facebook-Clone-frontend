@@ -79,14 +79,15 @@ export const uploadData = async (uri, newPost = "") => {
 
 export const uploadtoServer = async (uri, body = "", method = "put") => {
   const url = baseURL + uri;
-
+  let response;
   try {
-    makeAPIRequest(url, method, body);
+    response = makeAPIRequest(url, method, body);
 
     // window.location.reload();
   } catch (error) {
-    console.log(error);
+    response = error.message;
   }
+  return response;
 };
 
 // export const uploadImages = async (event, uri, uploadFiles, newPost = "", method = "put") => {

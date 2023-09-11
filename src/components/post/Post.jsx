@@ -135,7 +135,7 @@ const Post = ({ post, commentList }) => {
     };
     fetchUser();
   }, [post.userId]);
-  console.log("see it", postComments);
+
   return (
     <div className={styles.post}>
       <div className={styles.postWrapper}>
