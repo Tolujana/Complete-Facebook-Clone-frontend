@@ -3,46 +3,61 @@ import style from "./sharePopup.module.css";
 import { AuthContext } from "../../context/AuthContext";
 import { axiosInstance } from "../../proxySettings";
 import DisplayData from "../display/DisplayData";
-import { handleFiles, processDragNDrop, uploadData } from "../../utils/generalServices";
+import {
+  handleFiles,
+  handleUploadedFiles,
+  processDragNDrop,
+  uploadData,
+  uploadtoServer,
+} from "../../utils/generalServices";
+import { CircularProgress } from "@mui/material";
 
 const PublicFolder = process.env.REACT_APP_IMAGES_FOLDER;
 const NOIMAGE = process.env.REACT_APP_NO_IMAGE;
-const SharePopup = () => {
+const SharePopup2 = () => {
   const { user } = useContext(AuthContext);
   const [isDragActive, setDragActive] = useState(false);
   const [isDropped, setDropActive] = useState(false);
+  const [files, setFile] = useState([]);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const userInput = useRef();
   const [displayData, setDisplayData] = useState([]);
-  const [uploadFiles, setUploadFiles] = useState(null);
-  const [fileNames, setFileNames] = useState(null);
+  const [firebaseurl, setFireBaseUrl] = useState(null);
+  const [numberOfFiles, setNumberOfFiles] = useState(0);
   const [input, setInput] = useState("");
   const designType = ["row", "column"]; //this is for css style
   const randomNumber = Math.floor(Math.random() * 2);
   const classNameOptions = ["one", "two", "three", "four"]; // this is for CSS styles
   const design = designType[randomNumber];
-  const numberOfFiles = displayData.length;
+
+  //this is for post display based on number of images as in Facebook
   const designPattern =
     numberOfFiles < 5
       ? ` ${design} ${classNameOptions[numberOfFiles - 1]} `
       : ` ${design} multiple`;
 
-  const newPost = {
-    userId: user._id,
-    desc: userInput?.current?.value,
-    files: fileNames,
-    cssName: `post ${designPattern}`,
-  };
+  const updatePost = async (e) => {
+    setIsLoading(true);
+    const [url] = await handleUploadedFiles(files, "profiles");
+    setIsLoading(false);
 
-  const handleFileUpload = (event) => {
+    const newPost = {
+      userId: user._id,
+      desc: userInput?.current?.value,
+      files: url,
+      cssName: `post ${designPattern}`,
+    };
+    uploadtoServer(`/posts`, newPost, "post");
+  };
+  const showdisplayimage = (event) => {
     const dropActive = event.type === "drop" ? true : false;
     const files = dropActive ? event.dataTransfer.files : event.target.files;
-    const [fileNames, data, filesArray, errorMessage] = handleFiles(files, dropActive);
-    console.log(event);
-    setFileNames(fileNames);
-    setUploadFiles(data);
+    setFile(files);
+    const data = new FormData();
+    const filesArray = Object.values(files);
     setDisplayData(filesArray);
-    setError(errorMessage);
+    setNumberOfFiles(filesArray.length);
   };
 
   return (
@@ -88,29 +103,34 @@ const SharePopup = () => {
               <div
                 className={style.dragElement}
                 onDragEnter={(e) => {
-                  processDragNDrop(e, setDragActive, handleFileUpload);
+                  processDragNDrop(e, setDragActive, showdisplayimage);
                 }}
                 onDrop={(e) => {
-                  processDragNDrop(e, setDragActive, handleFileUpload);
+                  processDragNDrop(e, setDragActive, showdisplayimage);
                 }}
                 onDragOver={(e) => {
-                  processDragNDrop(e, setDragActive, handleFileUpload);
+                  processDragNDrop(e, setDragActive, showdisplayimage);
                 }}
                 onDragLeave={(e) => {
-                  processDragNDrop(e, setDragActive, handleFileUpload);
+                  processDragNDrop(e, setDragActive, showdisplayimage);
                 }}
               ></div>
             )}
-            {(isDropped || numberOfFiles > 0) && (
-              <div className={style.display}>
-                <DisplayData files={displayData} cssName={designPattern} />
-              </div>
-            )}
+            {(isDropped || numberOfFiles > 0) &&
+              (isLoading ? (
+                <div className={style.loader}>
+                  <CircularProgress size="35%" />
+                </div>
+              ) : (
+                <div className={style.display}>
+                  <DisplayData files={displayData} cssName={designPattern} />
+                </div>
+              ))}
             {!isDropped && (
               <div
                 className={`${style.drag} ${isDragActive ? style.white : ""}`}
                 onDragEnter={(e) => {
-                  processDragNDrop(e, setDragActive, handleFileUpload);
+                  processDragNDrop(e, setDragActive);
                 }}
               >
                 {numberOfFiles == 0 && (
@@ -125,7 +145,7 @@ const SharePopup = () => {
                   accept="image/png, image/gif, image/jpeg,video/mp4"
                   className={style.fileUpload}
                   multiple
-                  onChange={handleFileUpload}
+                  onChange={showdisplayimage}
                 />
               </div>
             )}
@@ -135,7 +155,7 @@ const SharePopup = () => {
         <button
           className={style.post}
           onClick={(e) => {
-            uploadData("posts", uploadFiles, newPost);
+            updatePost(e);
           }}
         >
           {" "}
@@ -146,4 +166,4 @@ const SharePopup = () => {
   );
 };
 
-export default SharePopup;
+export default SharePopup2;

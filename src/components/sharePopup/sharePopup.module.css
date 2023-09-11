@@ -11,6 +11,12 @@
 .shareWrapper {
   margin: 0px 20px;
 }
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .title {
   height: 60px;
   text-align: center;
