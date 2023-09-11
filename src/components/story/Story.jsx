@@ -32,7 +32,7 @@ const Story = () => {
     setScrollState([scrollAmount, element.scrollWidth]);
   }
 
-  const displayNoneleft = scrollState?.[0] < 10 ? styles.displayNone : "";
+  const displayNoneleft = scrollState?.[0] < 15 ? styles.displayNone : "";
   const displayNoneRight = scrollState?.[0] > scrollState?.[1] - 500 ? styles.displayNone : "";
 
   return (

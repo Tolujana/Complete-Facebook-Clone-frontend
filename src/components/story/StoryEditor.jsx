@@ -6,7 +6,7 @@ import {
   handleUploadedFiles,
   processDragNDrop,
   uploadtoServer,
-} from "../../utils/generalServices";
+} from "../../utils/  lServices";
 import { AuthContext } from "../../context/AuthContext";
 import { LinearProgress } from "@mui/material";
 
