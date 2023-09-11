@@ -13,8 +13,10 @@ import {
   confirmFriend,
   confirmFriendRequest,
   handleFiles,
+  handleUploadedFiles,
   openPopupDialog,
   uploadData,
+  uploadData2,
   uploadtoServer,
 } from "../../utils/generalServices";
 import StoryEditor from "../../components/story/StoryEditor";
@@ -104,35 +106,17 @@ const Profile = () => {
     }
   };
 
-  const updateProfilePic = (e) => {
-    const [fileNames, data, filesArray, errorMessage] = handleFiles(e.target.files);
+  const updateProfilePic = async (e) => {
+    const [url] = await handleUploadedFiles(e.target.files, "profiles");
 
-    uploadtoServer(`/users/${currentUser._id}/updatepics`, data, { profilePicture: fileNames[0] });
+    const response = uploadtoServer(`/users/${currentUser._id}/updatepics`, {
+      profilePicture: url[0],
+    });
+    console.log(response.data);
   };
 
   // const handleFile = async (e) => {
   //   const fileData = e.target.files[0];
-
-  //   if (fileData) {
-  //     const data = new FormData();
-  //     const fileName = Date.now() + fileData.name;
-  //     console.log("thisis", fileName);
-  //     data.append("name", fileName);
-  //     data.append("file", file);
-
-  //     user.profileImg = fileName;
-  //     try {
-  //       await axiosInstance.post("/upload", data);
-  //     } catch (error) {}
-
-  //     try {
-  //       await axiosInstance.put(`/${currentUser._id}/update`, { profilePicture: fileName });
-  //       window.location.reload();
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  // };
 
   return (
     <div>
@@ -154,15 +138,7 @@ const Profile = () => {
             <div className="profilecontainer">
               <div className={styles.profileInfos}>
                 <div className={styles.imaged}>
-                  <img
-                    src={
-                      user.profilePicture
-                        ? PUBLIC_UPLOAD_FOLDER + "/" + user.profilePicture
-                        : NOIMAGE
-                    }
-                    alt=""
-                    className={styles.profileImg}
-                  />
+                  <img src={user.profilePicture || NOIMAGE} alt="" className={styles.profileImg} />
                   {user._id === currentUser._id && (
                     <label htmlFor="file">
                       <div className={styles.editbutton} style={{ display: "block" }}>
@@ -170,7 +146,16 @@ const Profile = () => {
                       </div>
                     </label>
                   )}
-                  <input hidden onChange={updateProfilePic} type="file" name="upload" id="file" />
+                  <input
+                    hidden
+                    onChange={(e) => {
+                      updateProfilePic(e);
+                    }}
+                    type="file"
+                    name="upload"
+                    id="file"
+                    accept="image/png, image/gif, image/jpeg"
+                  />
                 </div>
                 <div className={styles.profileInfo}>
                   <span className={styles.profileName}>

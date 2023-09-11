@@ -10,11 +10,8 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    loginCall(
-      { email: email.current.value, password: password.current.value },
-      dispatch
-    );
+
+    loginCall({ email: email.current.value, password: password.current.value }, dispatch);
   };
 
   return (
@@ -22,9 +19,7 @@ const Login = () => {
       <form className={styles.loginWrapper} onSubmit={handleSubmit}>
         <div className={styles.loginLeft}>
           <h3 className={styles.loginLogo}>Finjana</h3>
-          <div className={styles.loginDesc}>
-            Connect with Friends and the world
-          </div>
+          <div className={styles.loginDesc}>Connect with Friends and the world</div>
           <div className={styles.loginDesc2}>Logon to Finjana</div>
         </div>
         <div className={styles.loginRight}>
@@ -52,9 +47,7 @@ const Login = () => {
                 "Login with username: jane@test.com, password:123456 \n \n login as jane's friend like so username:{friend's name}@test.com, password:123456 "
               }
             </span>
-            <button className={styles.registerButton}>
-              Create New Account
-            </button>
+            <button className={styles.registerButton}>Create New Account</button>
           </div>
         </div>
       </form>
