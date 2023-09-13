@@ -172,11 +172,11 @@ const Post = ({ post, commentList }) => {
           <div className={styles.postBottomStats}>
             <div className={styles.likes}>
               <img className={styles.postLike} src={EXTERNAL_FOLDER + "/likes.png"} alt="" />
-              <span className={styles.likesCounter}>{likes}</span>
+              <div className={styles.likesCounter}>{likes}</div>
             </div>
             <div className={styles.counters}>
-              <span className={styles.commentCounter}>{commentCount} Comments</span>
-              <span className={styles.shareCounter}> Shares</span>
+              <div className={styles.commentCounter}>{commentCount} Comments</div>
+              <div className={styles.shareCounter}> Shares</div>
             </div>
           </div>
 
