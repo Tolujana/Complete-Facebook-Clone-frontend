@@ -72,16 +72,18 @@
   /* justify-content: space-around; */
 }
 .likes {
-  flex: 3;
+  flex: 2;
   display: flex;
   align-items: center;
   gap: 4px;
 }
 .counters {
-  flex: 2;
+  flex: 1;
+  gap: 5%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  white-space: nowrap;
 }
 .postLine {
   margin: 4px;
@@ -96,12 +98,11 @@
 }
 .postBottomAction {
   cursor: pointer;
-  margin: 2px 0px;
-  padding: 4px 40px;
+  padding: 0.25rem 4%;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+
   border-radius: 6px;
 }
 .postBottomAction:hover {

@@ -135,7 +135,7 @@ const Profile = () => {
                 className={styles.profileCoverImg}
               />
             </div>
-            <div className="profilecontainer">
+            <div className={styles.infocontainer}>
               <div className={styles.profileInfos}>
                 <div className={styles.imaged}>
                   <img src={user.profilePicture || NOIMAGE} alt="" className={styles.profileImg} />
