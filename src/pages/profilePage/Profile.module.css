@@ -112,6 +112,7 @@
   margin: 10px;
   padding: 1px;
   width: 948px;
+  max-width: 100%;
 }
 .profileMenu {
   display: flex;
@@ -183,5 +184,10 @@
     min-height: 26px;
     padding: 0.2vw 1vw;
     font-size: 0.8rem;
+  }
+  .profileCover {
+    width: 98vw;
+  }
+  .dividingline {
   }
 }

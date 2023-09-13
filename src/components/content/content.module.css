@@ -22,10 +22,7 @@
   }
 }
 @media screen and (max-width: 700px) {
-  .content {
-    min-width: 100vw;
-  }
   .wrapper {
-    min-width: 95%;
+    min-width: 93vw;
   }
 }

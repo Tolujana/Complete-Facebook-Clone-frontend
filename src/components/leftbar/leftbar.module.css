@@ -86,10 +86,12 @@ ul {
     display: none;
   }
   .leftWrapper {
-    width: 7vw;
+    width: 10px;
+    min-width: 7vw;
+    z-index: 100;
   }
   .leftBar {
-    width: 7vw;
+    min-width: 7vw;
   }
 }
 @media screen and (max-width: 700px) {
