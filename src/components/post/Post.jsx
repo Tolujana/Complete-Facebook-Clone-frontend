@@ -13,15 +13,13 @@ import { axiosInstance } from "../../proxySettings";
 import DisplayData from "../display/DisplayData";
 import { openPopupDialog } from "../../utils/generalServices";
 
-const PUBLIC_FOLDER = process.env.REACT_APP_IMAGES_FOLDER;
-const EXTERNAL_FOLDER = process.env.REACT_APP_IMAGES_FOLDER;
 const NOIMAGE = process.env.REACT_APP_NO_IMAGE;
 const ShowComments = ({ userComment }) => {
   const { user, userImage, comment, replies } = userComment;
 
   return (
     <div className={styles.previousComment}>
-      <img src={PUBLIC_FOLDER + "/" + userImage || NOIMAGE} alt="" className={styles.postImg} />
+      <img src={userImage || NOIMAGE} alt="" className={styles.postImg} />
       <div className={styles.commentDisplay}>
         <div className={styles.usersText}>
           <div className={styles.name}>
@@ -57,6 +55,7 @@ const Post = ({ post, commentList }) => {
     payload: { name: "comment", post: post, user: nameInUpperCase, commentList: postComments },
   };
 
+  const EXTERNAL_FOLDER = process.env.REACT_APP_IMAGES_FOLDER;
   const postComment = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -141,11 +140,7 @@ const Post = ({ post, commentList }) => {
       <div className={styles.postWrapper}>
         <div className={styles.postTop}>
           <Link to={`/profile/${user.username}`}>
-            <img
-              src={PUBLIC_FOLDER + "/" + user.profilePicture || NOIMAGE}
-              alt=""
-              className={styles.postImg}
-            />
+            <img src={user.profilePicture || NOIMAGE} alt="" className={styles.postImg} />
           </Link>
           <div className={styles.postDetail}>
             <span className={styles.postName}>{"" && nameInUpperCase}</span>
@@ -164,7 +159,7 @@ const Post = ({ post, commentList }) => {
             {post.files ? (
               <DisplayData files={post.files} cssName={post?.cssName} />
             ) : (
-              <img src={EXTERNAL_FOLDER + post.img} alt="" className={styles.postContentImg} />
+              <img src={post.img} alt="" className={styles.postContentImg} />
             )}
           </div>
         </div>
@@ -172,11 +167,11 @@ const Post = ({ post, commentList }) => {
           <div className={styles.postBottomStats}>
             <div className={styles.likes}>
               <img className={styles.postLike} src={EXTERNAL_FOLDER + "/likes.png"} alt="" />
-              <div className={styles.likesCounter}>{likes}</div>
+              <span className={styles.likesCounter}>{likes}</span>
             </div>
             <div className={styles.counters}>
-              <div className={styles.commentCounter}>{commentCount} Comments</div>
-              <div className={styles.shareCounter}> Shares</div>
+              <span className={styles.commentCounter}>{commentCount} Comments</span>
+              <span className={styles.shareCounter}> Shares</span>
             </div>
           </div>
 
@@ -218,7 +213,7 @@ const Post = ({ post, commentList }) => {
             <div className={styles.commentField}>
               <div className={styles.postImage}>
                 <img
-                  src={PUBLIC_FOLDER + "/" + currentUser.profilePicture || NOIMAGE}
+                  src={currentUser.profilePicture || NOIMAGE}
                   alt=""
                   className={styles.postImg}
                 />

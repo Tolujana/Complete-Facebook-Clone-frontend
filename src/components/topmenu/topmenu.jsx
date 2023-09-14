@@ -204,7 +204,14 @@ function Topmenu() {
           </div>
           <div className={styles.topmenuIconItem}>
             <PublicIcon />
-            <span className={styles.topmenuIconValue}>1</span>
+            <span
+              className={styles.topmenuIconValue}
+              style={{
+                display: MessageSet.size > 0 ? "flex" : "none",
+              }}
+            >
+              0
+            </span>
           </div>
           <div className={styles.messenger}>
             <Messenger show={showMessenger} />

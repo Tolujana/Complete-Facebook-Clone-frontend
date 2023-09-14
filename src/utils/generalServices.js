@@ -5,7 +5,7 @@ import axios from "axios";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { storage } from "./firebase";
 
-const baseURL = "http://localhost:8800/api";
+const baseURL = process.env.baseURL;
 export const openPopupDialog = (action, dispatch) => {
   dispatch(action);
 };
@@ -67,16 +67,6 @@ export const uploadDatas = async (uri, uploadFiles, newPost = "") => {
   }
 };
 
-// export const uploadData = async (uri, newPost = "") => {
-//   try {
-//     const res = await axiosInstance.post(`${uri}`, newPost);
-//     console.log(res);
-//     // if (res.status == 200) document.location.reload();
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
 export const uploadtoServer = async (uri, body = "", method = "put") => {
   const url = baseURL + uri;
   let response;
@@ -89,37 +79,6 @@ export const uploadtoServer = async (uri, body = "", method = "put") => {
   }
   return response;
 };
-
-// export const uploadImages = async (event, uri, uploadFiles, newPost = "", method = "put") => {
-//   const url = baseURL + uri;
-//   const imageRef = ref(storage, "image");
-
-//   const dropActive = event.type === "drop" ? true : false;
-//   const files = dropActive ? event.dataTransfer.files : event.target.files;
-//   uploadBytes(imageRef);
-
-//   const [fileNames, data, filesArray, errorMessage] = handleFiles(files, dropActive);
-//   console.log(event);
-//   setFileNames(fileNames);
-//   setUploadFiles(data);
-//   setDisplayData(filesArray);
-//   setError(errorMessage);
-
-//   let response;
-//   try {
-//     response = await axiosInstance.post("/upload", uploadFiles);
-//   } catch (error) {}
-
-//   try {
-//     if (response.status === 200) {
-//       const res = makeAPIRequest(url, method, newPost);
-//     }
-
-//     window.location.reload();
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 const checkFileIsValid = (files) => {
   const check = !Object.values(files).some((file) => {
