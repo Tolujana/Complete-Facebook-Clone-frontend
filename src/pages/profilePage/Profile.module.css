@@ -172,6 +172,7 @@
   .editbutton {
     top: 8vw;
     left: 15vw;
+    font-size: 0.8rem;
   }
   .profileInfo {
     margin-top: 5rem;

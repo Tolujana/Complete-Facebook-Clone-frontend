@@ -22,6 +22,7 @@
   display: flex;
   flex-direction: column;
   justify-content: start;
+  margin: 0 0.25rem;
 }
 .loginLogo {
   font-size: 50px;
@@ -45,17 +46,28 @@
     border-color: transparent;
   }
 }
-.loginDesc {
+/* .loginDesc {
   white-space: nowrap;
   overflow: hidden;
   border-right: 3px solid;
   font-family: monospace;
   font-size: 2em;
-  width: 34ch;
+  width: 100%;
   animation: type 4s steps(34), blinking 0.5s step-end infinite alternate;
   border-right: 1px solid;
   overflow: hidden;
+} */
+.loginDesc {
+  white-space: wrap;
+  overflow: hidden;
+
+  font-family: monospace;
+  font-size: 2em;
+  width: fit-content;
+  min-width: 16ch;
+  overflow: hidden;
 }
+
 .loginDesc2 {
   white-space: nowrap;
   overflow: hidden;
@@ -63,7 +75,7 @@
   font-family: monospace;
   font-size: 2em;
   width: 16ch;
-  animation: border 1s 5s ease-in both, type 4s 5s steps(34) both,
+  animation: border 2s 5s ease-in both, type 3s steps(34) both,
     blinking 0.5s 5s step-end infinite alternate;
   border-right: 1px solid;
   overflow: hidden;
@@ -140,4 +152,18 @@ input::placeholder {
 .registerButton:hover {
   background-color: rgb(24, 204, 24);
   border-radius: 15px;
+}
+@media screen and (max-width: 900px) {
+  .loginWrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .loginLeft {
+    align-items: center;
+    margin-bottom: 0.8rem;
+    font-size: 0.8rem;
+  }
+  .loginDesc {
+    text-align: center;
+  }
 }

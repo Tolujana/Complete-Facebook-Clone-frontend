@@ -19,7 +19,7 @@ const Login = () => {
       <form className={styles.loginWrapper} onSubmit={handleSubmit}>
         <div className={styles.loginLeft}>
           <h3 className={styles.loginLogo}>Finjana</h3>
-          <div className={styles.loginDesc}>Connect with Friends and the world</div>
+          <span className={styles.loginDesc}>Connect with Friends and the world</span>
           <div className={styles.loginDesc2}>Logon to Finjana</div>
         </div>
         <div className={styles.loginRight}>
