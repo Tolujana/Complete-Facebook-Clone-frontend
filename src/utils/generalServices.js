@@ -68,7 +68,7 @@ export const uploadDatas = async (uri, uploadFiles, newPost = "") => {
 };
 
 export const uploadtoServer = async (uri, body = "", method = "put") => {
-  const url = baseURL + uri;
+  const url = baseURL + "/api/" + uri;
   let response;
   try {
     response = makeAPIRequest(url, method, body);

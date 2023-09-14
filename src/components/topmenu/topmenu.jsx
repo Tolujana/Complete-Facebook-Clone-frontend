@@ -49,7 +49,7 @@ function Topmenu() {
 
   useEffect(() => {
     //const socket = io('https://socialmedia-site.herokuapp.com/');
-    const socket = io("http://localhost:8800");
+    const socket = io(process.env.REACT_APP_BASEURL);
     dispatch({ type: "SOCKET", payload: socket });
 
     socket.emit("addUser", user._id);

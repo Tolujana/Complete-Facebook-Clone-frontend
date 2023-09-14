@@ -27,7 +27,7 @@ function Share() {
       <form className={styles.shareWrapper} encType="multipart/form-data">
         <div className={styles.shareTop}>
           <img
-            src={!user.profilePicture ? NOIMAGE : PF + "/" + user.profilePicture}
+            src={!user.profilePicture ? NOIMAGE : user.profilePicture}
             alt=""
             className={styles.sharepics}
           />
