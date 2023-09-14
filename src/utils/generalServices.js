@@ -67,15 +67,15 @@ export const uploadDatas = async (uri, uploadFiles, newPost = "") => {
   }
 };
 
-export const uploadData = async (uri, newPost = "") => {
-  try {
-    const res = await axiosInstance.post(`${uri}`, newPost);
-    console.log(res);
-    // if (res.status == 200) document.location.reload();
-  } catch (error) {
-    console.log(error);
-  }
-};
+// export const uploadData = async (uri, newPost = "") => {
+//   try {
+//     const res = await axiosInstance.post(`${uri}`, newPost);
+//     console.log(res);
+//     // if (res.status == 200) document.location.reload();
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 export const uploadtoServer = async (uri, body = "", method = "put") => {
   const url = baseURL + uri;
@@ -83,7 +83,7 @@ export const uploadtoServer = async (uri, body = "", method = "put") => {
   try {
     response = makeAPIRequest(url, method, body);
 
-    // window.location.reload();
+    window.location.reload();
   } catch (error) {
     response = error.message;
   }
