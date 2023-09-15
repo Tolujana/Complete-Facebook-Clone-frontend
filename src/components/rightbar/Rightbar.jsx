@@ -31,7 +31,7 @@ function Rightbar() {
               </div>
 
               <div className={styles.info}>
-                <span className={styles.friendName}> DamiLola Olofinjana</span>
+                <span className={styles.friendName}> Dami Stones</span>
                 <div className={styles.imgMutualFriends}>
                   <img src="images/persons/1.jpg" alt="" className={styles.imgMutualFriend} />
                   <img src="images/persons/1.jpg" alt="" className={styles.imgMutualFriend} />
