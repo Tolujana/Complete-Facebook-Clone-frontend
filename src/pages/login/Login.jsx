@@ -42,11 +42,7 @@ const Login = () => {
             <button className={styles.loginButton}>
               {isFetching ? <CircularProgress color="success" /> : "Log In"}
             </button>
-            <span className={styles.forgotPassword}>
-              {
-                "Login with username: jane@test.com, password:123456 \n \n login as jane's friend like so username:{friend's name}@test.com, password:123456 "
-              }
-            </span>
+            <span className={styles.forgotPassword}></span>
             <button className={styles.registerButton}>Create New Account</button>
           </div>
         </div>
