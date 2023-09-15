@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { AppContext } from "../../context/AppContext";
 import { SingleMessage } from "../messenger/Messenger";
 import styles from "./FriendsOnline.module.css";
 const Folder = process.env.REACT_APP_IMAGES_FOLDER;
 export const FriendsOnline = ({ user }) => {
   //const [chat, setChat] = useState(false);
-  const { dispatch, chats, messages } = useContext(AuthContext);
+  const { dispatch, chats, messages } = useContext(AppContext);
 
   const handleClick = () => {
     if (

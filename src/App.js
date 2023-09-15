@@ -9,12 +9,12 @@ import Register from "./pages/register/Register";
 import { Route, Routes } from "react-router-dom";
 import { useContext } from "react";
 
-import { AuthContextProvider, AuthContext } from "./context/AuthContext";
+import { AppContextProvider, AppContext } from "./context/AppContext";
 import Modal from "./components/modals/Modal";
 import StoryEditor from "./components/story/StoryEditor";
 
 function App() {
-  const { user, modalType } = useContext(AuthContext);
+  const { user, modalType } = useContext(AppContext);
   let storedUser = localStorage.getItem("user");
   let currentUser;
   storedUser ? (currentUser = JSON.parse(storedUser)) : (currentUser = user);

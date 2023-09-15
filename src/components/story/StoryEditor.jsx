@@ -7,14 +7,14 @@ import {
   processDragNDrop,
   uploadtoServer,
 } from "../../utils/generalServices";
-import { AuthContext } from "../../context/AuthContext";
+import { AppContext } from "../../context/AppContext";
 import { LinearProgress } from "@mui/material";
 
 const StoryEditor = () => {
   const [isDragActive, setDragActive] = useState(false);
   const [uploadData, setUPloadData] = useState(null);
   const [files, setFiles] = useState("");
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(AppContext);
   const [isLoading, setisLoading] = useState(false);
   const handleFileUpload = (event) => {
     const dropActive = event.type === "drop" ? true : false;

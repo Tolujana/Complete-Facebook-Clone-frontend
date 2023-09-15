@@ -4,7 +4,7 @@ import TheatersIcon from "@mui/icons-material/Theaters";
 import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import MoodIcon from "@mui/icons-material/Mood";
 import VideoCameraFrontIcon from "@mui/icons-material/VideoCameraFront";
-import { AuthContext } from "../../context/AuthContext";
+import { AppContext } from "../../context/AppContext";
 import { sharePost } from "../../utils/shareServices";
 import { openPopupDialog } from "../../utils/generalServices";
 
@@ -12,7 +12,7 @@ const PF = process.env.REACT_APP_IMAGES_FOLDER;
 const NOIMAGE = process.env.REACT_APP_NO_IMAGE;
 
 function Share() {
-  const { user, dispatch, modalType } = useContext(AuthContext);
+  const { user, dispatch, modalType } = useContext(AppContext);
   const userInput = useRef();
   const [file, setFile] = useState(null);
 

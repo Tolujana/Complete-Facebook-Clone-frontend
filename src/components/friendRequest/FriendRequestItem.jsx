@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { AppContext } from "../../context/AppContext";
 import { axiosInstance } from "../../proxySettings";
 import styles from "./FriendRequest.module.css";
 import { DeleteFriendRequest, confirmFriendRequest } from "../../utils/generalServices";
@@ -8,7 +8,7 @@ const NOIMAGE = process.env.REACT_APP_NO_IMAGE;
 export const FriendRequestItem = ({ userid, handleClickUp }) => {
   const [userWithRequest, setUserWithRequest] = useState("");
   const [friendRequest, setFriendRequest] = useState("");
-  const { user, dispatch } = useContext(AuthContext);
+  const { user, dispatch } = useContext(AppContext);
   useEffect(() => {
     const fetchUser = async () => {
       // const res = await axiosInstance.get(`/users?userId=${userid}`);

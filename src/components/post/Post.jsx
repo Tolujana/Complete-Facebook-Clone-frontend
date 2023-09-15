@@ -8,7 +8,7 @@ import ReplyIcon from "@mui/icons-material/Reply";
 import axios from "axios";
 import { format } from "timeago.js";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
+import { AppContext } from "../../context/AppContext";
 import { axiosInstance } from "../../proxySettings";
 import DisplayData from "../display/DisplayData";
 import { openPopupDialog } from "../../utils/generalServices";
@@ -48,7 +48,7 @@ const Post = ({ post, commentList }) => {
   const textBox = useRef();
   const [isLiked, setisLiked] = useState(false);
   const [user, setUser] = useState({});
-  const { user: currentUser, modalType, dispatch } = useContext(AuthContext);
+  const { user: currentUser, modalType, dispatch } = useContext(AppContext);
   const nameInUpperCase = user?.username?.charAt(0).toUpperCase() + user.username?.slice(1);
   const action = {
     type: "MODAL_TYPE",
@@ -108,9 +108,16 @@ const Post = ({ post, commentList }) => {
       setPostComments((previous) => [...previous, commentUpdate]);
       setCommentCount(postComments.length);
     }
-  }, [currentUser._id, userComment, commentCount]);
+  }, [currentUser._id, userComment]);
 
   const likeHandler = () => {
+    if (isLiked) {
+      setLike(likes - 1);
+      setisLiked(!isLiked);
+    } else {
+      setLike(likes + 1);
+      setisLiked(isLiked);
+    }
     try {
       const res = axiosInstance.put(`/posts/${post._id}/like`, {
         userId: currentUser._id,

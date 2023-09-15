@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
 import style from "./sharePopup.module.css";
-import { AuthContext } from "../../context/AuthContext";
+import { AppContext } from "../../context/AppContext";
 import { axiosInstance } from "../../proxySettings";
 import DisplayData from "../display/DisplayData";
 import {
@@ -15,7 +15,7 @@ import { CircularProgress } from "@mui/material";
 const PublicFolder = process.env.REACT_APP_IMAGES_FOLDER;
 const NOIMAGE = process.env.REACT_APP_NO_IMAGE;
 const SharePopup2 = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(AppContext);
   const [isDragActive, setDragActive] = useState(false);
   const [isDropped, setDropActive] = useState(false);
   const [files, setFile] = useState([]);

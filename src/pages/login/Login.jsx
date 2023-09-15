@@ -1,12 +1,12 @@
 import React, { useContext, useRef } from "react";
 import styles from "./Login.module.css";
 import { loginCall } from "../../apicalls";
-import { AuthContext } from "../../context/AuthContext";
+import { AppContext } from "../../context/AppContext";
 import { CircularProgress } from "@mui/material";
 const Login = () => {
   const email = useRef();
   const password = useRef();
-  const { isFetching, dispatch } = useContext(AuthContext);
+  const { isFetching, dispatch } = useContext(AppContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();

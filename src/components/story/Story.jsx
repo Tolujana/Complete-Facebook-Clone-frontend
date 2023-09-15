@@ -4,6 +4,7 @@ import styles from "./story.module.css";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { removeButton, currentElement } from "../../utils/storyServices";
+import { Navigate, Link } from "react-router-dom";
 let scrollAmount = 0;
 const PUBLIC_FOLDER = process.env.REACT_APP_IMAGES_FOLDER;
 const Story = () => {
@@ -49,7 +50,9 @@ const Story = () => {
             <div className={styles.userPic}>
               <img src={PUBLIC_FOLDER + "/image17.jpg"} alt="" />
             </div>
-            <div className={styles.actionButton}> create Story</div>
+            <Link to="/create-story" style={{ textDecoration: "none" }}>
+              <div className={styles.actionButton}> create Story</div>
+            </Link>
           </div>
           <div className={styles.story}>
             <div className={styles.friendPic}>

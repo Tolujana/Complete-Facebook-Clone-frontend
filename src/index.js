@@ -5,12 +5,12 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { render } from "react-dom";
 
-import { AuthContextProvider } from "./context/AuthContext";
+import { AppContextProvider } from "./context/AppContext";
 
 ReactDOM.render(
-  <AuthContextProvider>
+  <AppContextProvider>
     <App />
-  </AuthContextProvider>,
+  </AppContextProvider>,
   document.getElementById("root")
 );
 

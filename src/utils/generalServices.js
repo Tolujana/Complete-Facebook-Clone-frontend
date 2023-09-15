@@ -5,7 +5,7 @@ import axios from "axios";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { storage } from "./firebase";
 
-const baseURL = process.env.REACT_APP_BASEURL;
+const API = process.env.REACT_APP_API;
 export const openPopupDialog = (action, dispatch) => {
   dispatch(action);
 };
@@ -68,12 +68,12 @@ export const uploadDatas = async (uri, uploadFiles, newPost = "") => {
 };
 
 export const uploadtoServer = async (uri, body = "", method = "put") => {
-  const url = baseURL + "/api" + uri;
+  const url = API + uri;
   let response;
   try {
     response = makeAPIRequest(url, method, body);
 
-    // window.location.reload();
+    window.location.reload();
   } catch (error) {
     response = error.message;
   }

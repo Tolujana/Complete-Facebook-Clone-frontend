@@ -3,12 +3,12 @@ import styles from "./modal.module.css";
 import SharePopup from "../sharePopup/SharePopup";
 import CommentPopup from "../commentPopup/CommentPopup";
 import CloseIcon from "@mui/icons-material/Close";
-import { AuthContext } from "../../context/AuthContext";
+import { AppContext } from "../../context/AppContext";
 import { openPopupDialog } from "../../utils/generalServices";
 import DisplayData from "../display/DisplayData";
 
 const Modal = ({ payload }) => {
-  const { dispatch } = useContext(AuthContext);
+  const { dispatch } = useContext(AppContext);
 
   const action = { type: "MODAL_TYPE", payload: "" };
   const getComponentToDisplay = (payload) => {

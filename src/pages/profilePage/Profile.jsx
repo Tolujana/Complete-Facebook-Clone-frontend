@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
+import CameraEnhanceRoundedIcon from "@mui/icons-material/CameraEnhanceRounded";
 import Content from "../../components/content/Content";
 import Leftbar from "../../components/leftbar/Leftbar";
 import Rightbar from "../../components/rightbar/Rightbar";
 import Topmenu from "../../components/topmenu/topmenu";
 import styles from "./Profile.module.css";
 import { useParams } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
+import { AppContext } from "../../context/AppContext";
 import { axiosInstance } from "../../proxySettings";
 import {
   DeleteFriendRequest,
@@ -36,7 +37,7 @@ const Profile = () => {
   const [showButton, setShowButton] = useState(false);
   const [buttonText, setButtonText] = useState("");
   const username = useParams().username.toLowerCase();
-  const { user: currentUser, chats, dispatch } = useContext(AuthContext);
+  const { user: currentUser, chats, dispatch } = useContext(AppContext);
   const navigate = useNavigate();
   const usernameCapitalised = user?.username?.charAt(0)?.toUpperCase() + user?.username?.slice(1);
 
@@ -142,7 +143,7 @@ const Profile = () => {
                   {user._id === currentUser._id && (
                     <label htmlFor="file">
                       <div className={styles.editbutton} style={{ display: "block" }}>
-                        Edit
+                        <CameraEnhanceRoundedIcon />
                       </div>
                     </label>
                   )}

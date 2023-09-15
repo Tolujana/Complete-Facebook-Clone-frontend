@@ -8,7 +8,7 @@ import ReplyIcon from "@mui/icons-material/Reply";
 import axios from "axios";
 import { format } from "timeago.js";
 
-import { AuthContext } from "../../context/AuthContext";
+import { AppContext } from "../../context/AppContext";
 import { axiosInstance } from "../../proxySettings";
 import DisplayData from "../display/DisplayData";
 import { openPopupDialog } from "../../utils/generalServices";
@@ -21,7 +21,7 @@ const PostInComment = ({ post }) => {
 
   const [isLiked, setisLiked] = useState(false);
   const [user, setUser] = useState({});
-  const { user: userinfo, dispatch } = useContext(AuthContext);
+  const { user: userinfo, dispatch } = useContext(AppContext);
   const action = {
     type: "MODAL_TYPE",
     payload: { name: "comment", post: post },

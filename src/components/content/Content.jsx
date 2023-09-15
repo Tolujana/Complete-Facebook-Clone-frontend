@@ -3,14 +3,14 @@ import React, { useContext, useEffect, useState } from "react";
 import Share from "../share/Share";
 import Post from "../post/Post";
 import axios from "axios";
-import { AuthContext } from "../../context/AuthContext";
+import { AppContext } from "../../context/AppContext";
 import { axiosInstance } from "../../proxySettings";
 import Story from "../story/Story";
 let offset = 0;
 
 function Content({ username }) {
   const [posts, setPost] = useState([]);
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(AppContext);
   const fetchPost = async (offset) => {
     const res = username
       ? await axiosInstance.get("/posts/profile/" + username + "?offset=" + offset)

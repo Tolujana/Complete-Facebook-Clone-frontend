@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
 import style from "./sharePopup.module.css";
-import { AuthContext } from "../../context/AuthContext";
+import { AppContext } from "../../context/AppContext";
 import { axiosInstance } from "../../proxySettings";
 import DisplayData from "../display/DisplayData";
 import { handleFiles, processDragNDrop, uploadData } from "../../utils/generalServices";
@@ -8,7 +8,7 @@ import { handleFiles, processDragNDrop, uploadData } from "../../utils/generalSe
 const PublicFolder = process.env.REACT_APP_IMAGES_FOLDER;
 const NOIMAGE = process.env.REACT_APP_NO_IMAGE;
 const SharePopup = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(AppContext);
   const [isDragActive, setDragActive] = useState(false);
   const [isDropped, setDropActive] = useState(false);
   const [error, setError] = useState("");

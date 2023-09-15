@@ -3,13 +3,13 @@ import { VideoCall, MoreVert, Create } from "@mui/icons-material";
 
 import { FriendsOnline } from "../friends/FriendsOnline";
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { AppContext } from "../../context/AppContext";
 import axios from "axios";
 import SingleMessage from "../singlemessage/SingleMessage";
 import { formLabelClasses } from "@mui/material";
 import { axiosInstance } from "../../proxySettings";
 const Messenger = ({ show }) => {
-  const { user, chats, dispatch } = useContext(AuthContext);
+  const { user, chats, dispatch } = useContext(AppContext);
   const PF = process.env.REACT_APP_IMAGES_FOLDER;
 
   const [friends, setFriends] = useState([]);

@@ -10,14 +10,14 @@ import PublicIcon from "@mui/icons-material/Public";
 import PersonIcon from "@mui/icons-material/Person";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
+import { AppContext } from "../../context/AppContext";
 import Messenger from "../messenger/Messenger";
 import FriendRequest from "../friendRequest/FriendRequest";
 import { io } from "socket.io-client";
 import { axiosInstance } from "../../proxySettings";
 
 function Topmenu() {
-  const { user, dispatch, chats, messages, socket: savedSocket } = useContext(AuthContext);
+  const { user, dispatch, chats, messages, socket: savedSocket } = useContext(AppContext);
   const socket = useRef();
   const PF = process.env.REACT_APP_IMAGES_FOLDER;
   const NOIMAGE = process.env.REACT_APP_NO_IMAGE;
@@ -58,9 +58,7 @@ function Topmenu() {
         socket.emit("readdUser", user._id);
       }
     });
-    socket.on("users", (users) => {
-      console.log(users);
-    });
+    socket.on("users", (users) => {});
   }, [dispatch, user._id]);
 
   useEffect(() => {
@@ -222,7 +220,7 @@ function Topmenu() {
         </div>
         <Link to={`/profile/${user.username}`}>
           <img
-            src={user.profilePicture ? PF + "/" + user.profilePicture : NOIMAGE}
+            src={user.profilePicture ? user.profilePicture : NOIMAGE}
             alt=""
             className={styles.profilepic}
           />

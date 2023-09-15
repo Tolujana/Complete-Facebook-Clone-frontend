@@ -6,11 +6,11 @@ import Content from "../../components/content/Content";
 import Rightbar from "../../components/rightbar/Rightbar";
 import Share from "../../components/share/Share";
 import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { AppContext } from "../../context/AppContext";
 import Modal from "../../components/modals/Modal";
 
 export default function Home() {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(AppContext);
 
   return (
     <div>

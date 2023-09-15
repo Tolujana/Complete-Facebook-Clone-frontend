@@ -1,5 +1,5 @@
 import { createContext, useReducer, useEffect } from "react";
-import AuthReducer from "./AuthReducer";
+import AppReducer from "./AppReducer";
 
 const INITIAL_STATE = {
   user: null,
@@ -11,9 +11,9 @@ const INITIAL_STATE = {
   modalType: "",
 };
 
-export const AuthContext = createContext();
-export const AuthContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
+export const AppContext = createContext();
+export const AppContextProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(AppReducer, INITIAL_STATE);
 
   useEffect(() => {
     if (state.user) {
@@ -22,7 +22,7 @@ export const AuthContextProvider = ({ children }) => {
   }, [state.user]);
   const localData = JSON.parse(localStorage.getItem("user"));
   return (
-    <AuthContext.Provider
+    <AppContext.Provider
       value={{
         user: localData || state.user,
         isFetching: state.isFetching,
@@ -35,7 +35,7 @@ export const AuthContextProvider = ({ children }) => {
       }}
     >
       {children}
-    </AuthContext.Provider>
+    </AppContext.Provider>
   );
 };
 // _id: "622f4191b32a471db4a725b8",

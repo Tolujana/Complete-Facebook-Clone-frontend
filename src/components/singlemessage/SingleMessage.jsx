@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import style from "./Single.module.css";
 import { io } from "socket.io-client";
-import { AuthContext } from "../../context/AuthContext";
+import { AppContext } from "../../context/AppContext";
 // import e from 'cors';
 import Message from "../message/Message";
 const PF = process.env.REACT_APP_IMAGES_FOLDER;
 const NOIMAGE = process.env.REACT_APP_NO_IMAGE;
 
 const SingleMessage = ({ user }) => {
-  const { user: currentUser, socket, messages, dispatch } = useContext(AuthContext);
+  const { user: currentUser, socket, messages, dispatch } = useContext(AppContext);
   const [sockets, setSocket] = useState(null);
   const [newMessage, setnewMessage] = useState("");
   //const [messages, setMessages] = useState([]);

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import "./display.css";
-import { AuthContext } from "../../context/AuthContext";
+import { AppContext } from "../../context/AppContext";
 const DisplayData = ({ files, cssName }) => {
   const EXTERNAL_FOLDER = process.env.REACT_APP_IMAGES_FOLDER;
   const NumOfFiles = files.length;

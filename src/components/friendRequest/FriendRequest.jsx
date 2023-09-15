@@ -1,10 +1,10 @@
 import style from "./FriendRequest.module.css";
 import { FriendRequestItem } from "../friendRequest/FriendRequestItem";
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { AppContext } from "../../context/AppContext";
 
 const FriendRequest = ({ show }) => {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(AppContext);
 
   return (
     <div className={style.request}>
