@@ -12,37 +12,16 @@ import { AppContext } from "../../context/AppContext";
 import { axiosInstance } from "../../proxySettings";
 import DisplayData from "../display/DisplayData";
 import { openPopupDialog } from "../../utils/generalServices";
+import ShowComments from "./ShowComments";
 
 const NOIMAGE = process.env.REACT_APP_NO_IMAGE;
-const ShowComments = ({ userComment }) => {
-  const { user, userImage, comment, replies } = userComment;
-
-  return (
-    <div className={styles.previousComment}>
-      <img src={userImage || NOIMAGE} alt="" className={styles.postImg} />
-      <div className={styles.commentDisplay}>
-        <div className={styles.usersText}>
-          <div className={styles.name}>
-            <span>{user}</span>
-          </div>
-          <span>{comment}</span>
-        </div>
-        <div className={styles.commentActionButtons}>
-          <span>Like</span>
-          <span>Reply</span>
-          <span>Share</span>
-        </div>
-        <div className={styles.replies}>{replies}</div>
-      </div>
-    </div>
-  );
-};
 
 const Post = ({ post, commentList }) => {
   const [likes, setLike] = useState(post.likes.length);
   const [commentCount, setCommentCount] = useState(post.comment.length);
   const [userComment, setUserComment] = useState("");
   const [postComments, setPostComments] = useState(post.comment);
+  const [updatedComment, setUpdatedComment] = useState([]);
   const textArea = useRef();
   const commentArea = useRef();
   const textBox = useRef();
@@ -57,24 +36,38 @@ const Post = ({ post, commentList }) => {
 
   const EXTERNAL_FOLDER = process.env.REACT_APP_IMAGES_FOLDER;
   const postComment = (event) => {
-    if (event.key === "Enter") {
+    const content = event.target.value;
+    const pattern = new RegExp("[^ ]");
+    const alpanumericTest = pattern.test(content);
+    if (event.key === "Enter" && alpanumericTest) {
       event.preventDefault();
-      setUserComment(event.target.value);
-      setCommentCount((previous) => previous++);
-      updateComment(event.target.value);
+      console.log(content);
+      // setUserComment(content);
+      //setCommentCount((previous) => previous++);
+
       event.target.value = "";
+      const commentUpdate = {
+        userId: currentUser._id,
+        comment: content,
+        userImage: currentUser.profilePicture,
+      };
+      setUserComment(commentUpdate);
+      setPostComments((previous) => [...previous, commentUpdate]);
+      setCommentCount(postComments.length);
+      setUpdatedComment((previous) => [...previous, commentUpdate]);
     }
   };
 
   const updateComment = (comment) => {
     const commentPayload = {
-      userId: currentUser._id,
-      comment: comment,
-      userImage: currentUser.profilePicture,
+      comment: updatedComment,
     };
+    console.log("uploading", updatedComment);
     try {
       const res = axiosInstance.put(`/posts/${post._id}/comment`, commentPayload);
       if (res.status == 200) {
+        console.log(res.data);
+        setUpdatedComment([]);
       }
     } catch (error) {
       console.log(error.message);
@@ -98,26 +91,19 @@ const Post = ({ post, commentList }) => {
     setisLiked(post.likes.includes(currentUser._id));
   }, [currentUser._id, post.likes]);
 
-  useEffect(() => {
-    if (userComment != "") {
-      const commentUpdate = {
-        userId: currentUser._id,
-        comment: userComment,
-        userImage: currentUser.profilePicture,
-      };
-      setPostComments((previous) => [...previous, commentUpdate]);
-      setCommentCount(postComments.length);
-    }
-  }, [currentUser._id, userComment]);
+  // useEffect(() => {
+  //   if (userComment != "") {
+  //     const commentUpdate = {
+  //       userId: currentUser._id,
+  //       comment: userComment,
+  //       userImage: currentUser.profilePicture,
+  //     };
+  //     // setPostComments((previous) => [...previous, commentUpdate]);
+  //     // setCommentCount(postComments.length);
+  //   }
+  // }, [currentUser._id, userComment]);
 
   const likeHandler = () => {
-    if (isLiked) {
-      setLike(likes - 1);
-      setisLiked(!isLiked);
-    } else {
-      setLike(likes + 1);
-      setisLiked(isLiked);
-    }
     try {
       const res = axiosInstance.put(`/posts/${post._id}/like`, {
         userId: currentUser._id,
@@ -205,17 +191,7 @@ const Post = ({ post, commentList }) => {
 
           <div className={styles.postBottomcomments} ref={commentArea}>
             <div className={styles.listOfComments}>
-              {commentCount !== 0 ? (
-                commentList ? (
-                  //show full comments in comment popup
-                  postComments.map((comment) => <ShowComments userComment={comment} />)
-                ) : (
-                  //show last comment only
-                  <ShowComments userComment={postComments[commentCount - 1]} />
-                )
-              ) : (
-                ""
-              )}
+              <ShowComments userComment={userComment} />
             </div>
             <div className={styles.commentField}>
               <div className={styles.postImage}>
@@ -228,6 +204,7 @@ const Post = ({ post, commentList }) => {
               <div className={styles.textBox} ref={textBox}>
                 <textarea
                   onKeyDown={postComment}
+                  onBlur={updateComment}
                   onInput={autoResize}
                   ref={textArea}
                   type="text"
