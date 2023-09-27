@@ -153,7 +153,7 @@
   height: fit-content;
   font-family: sans-serif;
   width: fit-content;
-  padding: 10px;
+  padding: 2px 10px;
   border-radius: 10px;
   margin-left: 10px;
   background-color: var(--color-secondary);
@@ -175,18 +175,21 @@
   color: #c3c4c8;
 }
 .previousComment {
-  /* margin-right: 10px; */
   margin: 8px;
   display: flex;
   align-items: start;
   justify-items: center;
-  width: 100%;
+  width: auto;
   overflow-wrap: anywhere;
   height: fit-content;
 }
 .listOfComments {
   width: 100%;
+  max-height: 150px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
+
 .replies {
 }
 .commentActionButtons {
@@ -214,4 +217,8 @@
   .postBottomAction:nth-child(2) {
     display: none;
   }
+}
+.commentName {
+  font-size: smaller;
+  font-weight: bold;
 }

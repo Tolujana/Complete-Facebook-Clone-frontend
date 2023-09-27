@@ -66,7 +66,7 @@ const SharePopup2 = () => {
       <div className={style.shareWrapper}>
         <div className={style.userInfo}>
           <img
-            src={!user.profilePicture ? NOIMAGE : PublicFolder + "/" + user.profilePicture}
+            src={!user.profilePicture ? NOIMAGE : user.profilePicture}
             alt=""
             className={style.shareImage}
           />
@@ -74,10 +74,8 @@ const SharePopup2 = () => {
             <div className={style.name}>
               {user?.username?.charAt(0).toUpperCase() + user?.username?.slice(1)}
             </div>
-            <select name="" id="" className="postType">
-              <option value="" selected>
-                Public
-              </option>
+            <select name="" id="" className="postType" defaultValue={"Public  "}>
+              <option value="">Public</option>
               <option value="">private</option>
             </select>
           </div>

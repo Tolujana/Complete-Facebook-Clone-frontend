@@ -2,7 +2,6 @@ let currentElement;
 
 const removeButton = (ref) => {
   if (ref == undefined) {
-    console.log(currentElement);
     return "";
   } else if (ref.current.scrollLeft < 10) {
     return "removeLeftbutton";

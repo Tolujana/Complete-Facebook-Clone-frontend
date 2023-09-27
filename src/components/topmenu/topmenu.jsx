@@ -24,32 +24,28 @@ function Topmenu() {
   const [showMessenger, setShowMessenger] = useState(false);
   const [showFriendRequest, setShowFriendRequest] = useState(false);
   const [latestMessage, setlatestMessage] = useState({});
+  const [friendsOnline, setfriendsOnline] = useState({});
   const lattestMessage = useRef({});
-
-  console.log(messages ? messages : "");
 
   const MessageSet = new Set();
   const menuItem = useRef();
 
   const loadMenuPage = (event) => {
     updateStyle(event);
-    //console.log(event.currentTarget.value);
   };
 
   const updateStyle = (event) => {
     const menuitems = menuItem.current.querySelectorAll("li");
-    console.log(menuitems);
+
     menuitems.forEach((menuItem) => {
       menuItem.classList.remove(styles.active);
     });
     event.currentTarget.classList.add(styles.active);
-
-    console.log(event.currentTarget.classList);
   };
-
+  const soscket = process.env.REACT_APP_BASEURL;
   useEffect(() => {
     //const socket = io('https://socialmedia-site.herokuapp.com/');
-    const socket = io(process.env.REACT_APP_BASEURL);
+    const socket = io(soscket);
     dispatch({ type: "SOCKET", payload: socket });
 
     socket.emit("addUser", user._id);
@@ -58,7 +54,9 @@ function Topmenu() {
         socket.emit("readdUser", user._id);
       }
     });
-    socket.on("users", (users) => {});
+    socket.on("users", (users) => {
+      setfriendsOnline(users);
+    });
   }, [dispatch, user._id]);
 
   useEffect(() => {
@@ -73,7 +71,7 @@ function Topmenu() {
         message: data?.message,
         createdAt: Date.now(),
       };
-      // console.log(data?.senderId);
+
       // setlatestMessage((prev) => ({
       //   senderId: data?.senderId,
       //   receiverId: user._id,
@@ -85,12 +83,12 @@ function Topmenu() {
     });
   }, [savedSocket, user._id, dispatch]);
 
-  console.log(chats);
-  console.log(lattestMessage.current);
-
   useEffect(() => {
     const fetchUser = async () => {
-      if (!chats?.some((user) => user._id === lattestMessage.current.senderId)) {
+      if (
+        lattestMessage.current.senderId &&
+        !chats?.some((user) => user._id === lattestMessage.current.senderId)
+      ) {
         const res = await axiosInstance.get(`/users?userId=${lattestMessage.current.senderId}`);
 
         const userData = {
@@ -112,7 +110,7 @@ function Topmenu() {
   //     const res = await axiosInstance.get(`/users/friendrequests/${user._id}`);
 
   //     if (JSON.stringify(res.data) !== JSON.stringify(user.friendRequest)) {
-  //       console.log("friendrequest", res.data);
+  //
   //       dispatch({ type: "UPDATE_FRIENDREQUEST", payload: "tolu" });
   //     }
   //   };
@@ -212,7 +210,7 @@ function Topmenu() {
             </span>
           </div>
           <div className={styles.messenger}>
-            <Messenger show={showMessenger} />
+            <Messenger show={showMessenger} users={friendsOnline} />
           </div>
           <div className={styles.friendrequest}>
             <FriendRequest show={showFriendRequest} />

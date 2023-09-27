@@ -38,9 +38,7 @@ export const DeleteFriendRequest = async (userId, currentUser, dispatch) => {
       });
       return true;
     }
-  } catch (error) {
-    console.log(error.message);
-  }
+  } catch (error) {}
 };
 
 export const confirmFriend = (userId, currentUser, dispatch, setButtonText = null) => {
@@ -55,16 +53,13 @@ export const confirmFriend = (userId, currentUser, dispatch, setButtonText = nul
 export const uploadDatas = async (uri, uploadFiles, newPost = "") => {
   try {
     const response = await axiosInstance.post("/upload", uploadFiles);
-    console.log(response);
   } catch (error) {}
 
   try {
     const res = await axiosInstance.post(`${uri}`, newPost);
 
     document.location.reload();
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 export const uploadtoServer = async (uri, body = "", method = "put") => {
@@ -141,9 +136,7 @@ const makeAPIRequest = async (url, method, data) => {
   };
 
   return axios(config)
-    .then((response) => {
-      console.log("Response:", response.data);
-    })
+    .then((response) => {})
     .catch((error) => {
       console.error("Error:", error);
     });
@@ -170,11 +163,7 @@ export const firebaseFileUpload = async (file, urls, folderName) => {
         .then((url) => {
           urls.push(url);
         })
-        .catch((error) => {
-          console.log(error.message, "error getting url");
-        })
+        .catch((error) => {})
     )
-    .catch((error) => {
-      console.log(error.message, "error uploading");
-    });
+    .catch((error) => {});
 };

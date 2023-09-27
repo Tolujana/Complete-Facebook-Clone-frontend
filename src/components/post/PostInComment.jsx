@@ -40,7 +40,6 @@ const PostInComment = ({ post }) => {
       const res = axiosInstance.put(`/posts/${post._id}/like`, {
         userId: userinfo._id,
       });
-      console.log(res);
     } catch (error) {
       if (isLiked) {
         setLike(likes - 1);
@@ -49,7 +48,6 @@ const PostInComment = ({ post }) => {
         setLike(likes + 1);
         setisLiked(isLiked);
       }
-      console.log(error);
     }
   };
 

@@ -6,10 +6,10 @@ const Folder = process.env.REACT_APP_IMAGES_FOLDER;
 export const FriendsOnline = ({ user }) => {
   //const [chat, setChat] = useState(false);
   const { dispatch, chats, messages } = useContext(AppContext);
-
+  const NOIMAGE = process.env.REACT_APP_NO_IMAGE;
   const handleClick = () => {
     if (
-      !chats.some((users) => users._id === user._id)
+      !chats?.some((users) => users._id === user._id)
       // !chats?.includes(user)
       //|| messages.some((message) => message.receiverId === user._id)
     ) {
@@ -23,9 +23,7 @@ export const FriendsOnline = ({ user }) => {
         <li className={styles.friendsInfo}>
           <div className={styles.profileImgContainer}>
             <img
-              src={
-                user.profilePicture ? Folder + "/" + user.profilePicture : Folder + "/noimage.png"
-              }
+              src={user.profilePicture ? user.profilePicture : NOIMAGE}
               alt=""
               className={styles.friendsPics}
             />

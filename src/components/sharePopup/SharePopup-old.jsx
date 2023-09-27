@@ -38,7 +38,7 @@ const SharePopup = () => {
     const dropActive = event.type === "drop" ? true : false;
     const files = dropActive ? event.dataTransfer.files : event.target.files;
     const [fileNames, data, filesArray, errorMessage] = handleFiles(files, dropActive);
-    console.log(event);
+
     setFileNames(fileNames);
     setUploadFiles(data);
     setDisplayData(filesArray);
@@ -135,7 +135,6 @@ const SharePopup = () => {
         <button
           className={style.post}
           onClick={(e) => {
-            console.log("clicked");
             uploadData("posts", uploadFiles, newPost);
           }}
         >

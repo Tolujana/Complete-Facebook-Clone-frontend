@@ -29,14 +29,14 @@ const SingleMessage = ({ user }) => {
   //     setMessages((prev) => {
   //       return [...prev, latestMessage];
   //     });
-  //     console.log('recieved', latestMessage);
+  //
   //   });
   // }, [socket]);
   // sent socketid to server
   // useEffect(() => {
   //   socket.current.emit('addUser', currentUser._id);
   //   socket.current.on('users', (users) => {
-  //     console.log(users);
+
   //   });
   // }, [currentUser]);
 
@@ -48,6 +48,11 @@ const SingleMessage = ({ user }) => {
 
   const handleChange = (e) => {
     setnewMessage(e.target.value);
+  };
+  const sendMessage = (e) => {
+    if (e.key === "Enter") {
+      handleMessage(e);
+    }
   };
 
   const handleMessage = (e) => {
@@ -67,8 +72,6 @@ const SingleMessage = ({ user }) => {
     setnewMessage("");
 
     //setMessages((prev) => [...prev, data]);
-    console.log(data);
-    console.log("message", messages);
   };
 
   useEffect(() => {});
@@ -77,7 +80,7 @@ const SingleMessage = ({ user }) => {
       <div className={style.header}>
         <div className={style.img}>
           <img
-            src={!user.profilePicture ? NOIMAGE : PF + "/" + user.profilePicture}
+            src={!user.profilePicture ? NOIMAGE : user.profilePicture}
             alt=""
             className={style.profileImg}
           />
@@ -109,7 +112,7 @@ const SingleMessage = ({ user }) => {
               }
               createdAt={m.createdAt}
               owner={m.senderId === currentUser._id}
-              ref={id === m.length ? id : null}
+              ref={id === m.length - 1 ? id : null}
             />
           ))}
       </ul>
@@ -119,6 +122,7 @@ const SingleMessage = ({ user }) => {
           id="message"
           cols="30"
           rows="3"
+          onKeyDown={sendMessage}
           onChange={handleChange}
           value={newMessage}
           placeholder="send a message"

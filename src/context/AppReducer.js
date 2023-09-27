@@ -23,6 +23,8 @@ const AppReducer = (state, action) => {
 
     case "UPDATE_FRIENDREQUEST":
       return { ...state, user: action.payload };
+    case "UPDATEPROFILEPICS":
+      return { ...state, user: { ...state.user, profilePicture: action.payload } };
     case "CHAT_START":
       return { ...state, chats: [...state.chats, action.payload] };
     case "SOCKET":

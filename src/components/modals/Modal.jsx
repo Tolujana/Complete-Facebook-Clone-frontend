@@ -21,7 +21,11 @@ const Modal = ({ payload }) => {
         return <div>EDit profile</div>;
       case "comment":
         return (
-          <CommentPopup post={payload.post} user={payload.user} commentList={payload.commentList} />
+          <CommentPopup
+            post_id={payload.post_id}
+            user={payload.user}
+            commentList={payload.commentList}
+          />
         );
       case "story":
         return (

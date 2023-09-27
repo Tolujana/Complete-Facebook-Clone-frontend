@@ -113,7 +113,10 @@ const Profile = () => {
     const response = uploadtoServer(`/users/${currentUser._id}/updatepics`, {
       profilePicture: url[0],
     });
-    console.log(response.data);
+
+    if (response.status == 200) {
+      dispatch({ type: "UPDATEPROFILEPICS", payload: url[0] });
+    }
   };
 
   // const handleFile = async (e) => {

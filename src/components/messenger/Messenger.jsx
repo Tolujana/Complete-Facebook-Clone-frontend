@@ -8,32 +8,18 @@ import axios from "axios";
 import SingleMessage from "../singlemessage/SingleMessage";
 import { formLabelClasses } from "@mui/material";
 import { axiosInstance } from "../../proxySettings";
-const Messenger = ({ show }) => {
+const Messenger = ({ show, users }) => {
   const { user, chats, dispatch } = useContext(AppContext);
   const PF = process.env.REACT_APP_IMAGES_FOLDER;
 
   const [friends, setFriends] = useState([]);
-  //const [chats, setChat] = useState([]);
-
-  // const handleClicks = (user) => {
-  //   if (!user.chats.includes(user)) {
-  //     setChat((prev) => {
-  //       const t = [user, ...prev];
-  //       console.log(t);
-  //       return t;
-  //     });
-  //   }
-  // };
 
   useEffect(() => {
     const fetchFriends = async () => {
       try {
         const res = await axiosInstance.get("/users/friend/" + user._id);
         setFriends(res.data);
-        console.log(res.data);
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     };
     fetchFriends();
   }, [user._id]);
@@ -58,23 +44,23 @@ const Messenger = ({ show }) => {
 
       <div className={chats?.length > 0 ? style.chatlist : style.none}>
         <ul className={chats?.length > 0 ? style.chats : style.none}>
-          {chats?.slice(0, 3).map((u) => (
+          {chats?.slice(0, 3).map((user) => (
             <li className={style.chat}>
-              <SingleMessage key={u._id} user={u} />
+              <SingleMessage key={user._id} user={user} />
             </li>
           ))}
         </ul>
         <div className={style.remainingChats}>
-          {chats?.slice(3).map((u) => (
+          {chats?.slice(3).map((user) => (
             <div
               className={style.remainingChat}
-              key={u._id}
+              key={user._id}
               style={{
                 backgroundSize: "contain",
-                backgroundImage: `url(${PF + "/" + u.profilePicture})`,
+                backgroundImage: `url(${PF + "/" + user.profilePicture})`,
               }}
             >
-              {u.username?.charAt(0).toUpperCase() + u.username?.slice(1)}
+              {user.username?.charAt(0).toUpperCase() + user.username?.slice(1)}
             </div>
           ))}
         </div>

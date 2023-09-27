@@ -17,60 +17,68 @@ import ShowComments from "./ShowComments";
 const NOIMAGE = process.env.REACT_APP_NO_IMAGE;
 
 const Post = ({ post, commentList }) => {
-  const [likes, setLike] = useState(post.likes.length);
+  const textArea = useRef();
+  const commentArea = useRef();
+  const textBox = useRef();
+  const { user: currentUser, modalType, dispatch } = useContext(AppContext);
+  const [likes, setLike] = useState(post?.likes?.length);
   const [commentCount, setCommentCount] = useState(post.comment.length);
   const [userComment, setUserComment] = useState("");
   const [postComments, setPostComments] = useState(post.comment);
   const [updatedComment, setUpdatedComment] = useState([]);
-  const textArea = useRef();
-  const commentArea = useRef();
-  const textBox = useRef();
-  const [isLiked, setisLiked] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const isPostAlreadyLike = post.likes.includes(currentUser._id) > 0;
   const [user, setUser] = useState({});
-  const { user: currentUser, modalType, dispatch } = useContext(AppContext);
+  const [isLiked, setisLiked] = useState(post.likes.includes(isPostAlreadyLike));
   const nameInUpperCase = user?.username?.charAt(0).toUpperCase() + user.username?.slice(1);
-  const action = {
-    type: "MODAL_TYPE",
-    payload: { name: "comment", post: post, user: nameInUpperCase, commentList: postComments },
-  };
 
   const EXTERNAL_FOLDER = process.env.REACT_APP_IMAGES_FOLDER;
+
   const postComment = (event) => {
     const content = event.target.value;
     const pattern = new RegExp("[^ ]");
     const alpanumericTest = pattern.test(content);
     if (event.key === "Enter" && alpanumericTest) {
       event.preventDefault();
-      console.log(content);
-      // setUserComment(content);
-      //setCommentCount((previous) => previous++);
 
       event.target.value = "";
       const commentUpdate = {
+        userName: currentUser.username,
         userId: currentUser._id,
         comment: content,
         userImage: currentUser.profilePicture,
       };
       setUserComment(commentUpdate);
+      setCommentCount((previous) => previous + 1);
       setPostComments((previous) => [...previous, commentUpdate]);
-      setCommentCount(postComments.length);
+
       setUpdatedComment((previous) => [...previous, commentUpdate]);
     }
   };
 
-  const updateComment = (comment) => {
+  const likePost = () => {
+    setisLiked((previous) => !previous);
+    if (isLiked) {
+      setLike((previous) => previous - 1);
+    } else {
+      setLike((previous) => previous + 1);
+    }
+  };
+
+  const updateComment = async () => {
     const commentPayload = {
       comment: updatedComment,
     };
-    console.log("uploading", updatedComment);
+
     try {
-      const res = axiosInstance.put(`/posts/${post._id}/comment`, commentPayload);
-      if (res.status == 200) {
-        console.log(res.data);
+      const res = await axiosInstance.put(`/posts/${post._id}/comment`, commentPayload);
+
+      if (res.status === 200) {
         setUpdatedComment([]);
       }
     } catch (error) {
-      console.log(error.message);
+      setIsError(true);
+      setUpdatedComment([]);
     }
   };
 
@@ -84,39 +92,55 @@ const Post = ({ post, commentList }) => {
   }
 
   const openCommentDialog = () => {
+    const action = {
+      type: "MODAL_TYPE",
+      payload: {
+        name: "comment",
+
+        post_id: post._id,
+        user: nameInUpperCase,
+        commentList: postComments,
+      },
+    };
     openPopupDialog(action, dispatch);
   };
 
   useEffect(() => {
-    setisLiked(post.likes.includes(currentUser._id));
-  }, [currentUser._id, post.likes]);
+    if (userComment != "") {
+      if (!isError) {
+        const commentUpdate = {
+          userId: currentUser._id,
+          comment: userComment,
+          userImage: currentUser.profilePicture,
+        };
 
-  // useEffect(() => {
-  //   if (userComment != "") {
-  //     const commentUpdate = {
-  //       userId: currentUser._id,
-  //       comment: userComment,
-  //       userImage: currentUser.profilePicture,
-  //     };
-  //     // setPostComments((previous) => [...previous, commentUpdate]);
-  //     // setCommentCount(postComments.length);
-  //   }
-  // }, [currentUser._id, userComment]);
-
-  const likeHandler = () => {
-    try {
-      const res = axiosInstance.put(`/posts/${post._id}/like`, {
-        userId: currentUser._id,
-      });
-    } catch (error) {
-      if (isLiked) {
-        setLike(likes - 1);
-        setisLiked(!isLiked);
+        setCommentCount(postComments.length);
       } else {
-        setLike(likes + 1);
-        setisLiked(isLiked);
+        setPostComments((previous) => {
+          previous.pop();
+          return previous;
+        });
       }
-      console.log(error);
+    }
+  }, [currentUser._id, userComment]);
+
+  const likeHandler = async () => {
+    if (isLiked != isPostAlreadyLike) {
+      try {
+        const res = await axiosInstance.put(`/posts/${post._id}/like`, {
+          userId: currentUser._id,
+        });
+
+        if (res.status == 200) {
+        }
+      } catch (error) {
+        if (isLiked) {
+          setLike(likes - 1);
+        } else {
+          setLike(likes + 1);
+        }
+        setisLiked((previous) => !previous);
+      }
     }
   };
 
@@ -136,7 +160,7 @@ const Post = ({ post, commentList }) => {
             <img src={user.profilePicture || NOIMAGE} alt="" className={styles.postImg} />
           </Link>
           <div className={styles.postDetail}>
-            <span className={styles.postName}>{"" && nameInUpperCase}</span>
+            <span className={styles.postName}>{nameInUpperCase}</span>
             <div className={styles.time}>
               <span className={styles.timeStamp}>{format(post.createdAt)}</span>
               <span className={styles.timeStampDot}>.</span>
@@ -171,7 +195,7 @@ const Post = ({ post, commentList }) => {
           <div className={styles.postActions}>
             <div className={styles.postBottomAction}>
               <ThumbUpIcon />
-              <div onClick={likeHandler} className={styles.like} id="">
+              <div onClick={likePost} className={styles.like} id="" onMouseLeave={likeHandler}>
                 {isLiked ? "Unlike" : "Like"}
               </div>
             </div>
@@ -191,7 +215,9 @@ const Post = ({ post, commentList }) => {
 
           <div className={styles.postBottomcomments} ref={commentArea}>
             <div className={styles.listOfComments}>
-              <ShowComments userComment={userComment} />
+              {commentCount > 0 && commentList
+                ? postComments.map((postComment) => <ShowComments userComment={postComment} />)
+                : commentCount > 0 && <ShowComments userComment={postComments[commentCount - 1]} />}
             </div>
             <div className={styles.commentField}>
               <div className={styles.postImage}>

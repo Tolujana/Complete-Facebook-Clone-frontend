@@ -26,14 +26,14 @@ const Login = () => {
           <div className={styles.loginBox}>
             <input
               type="email"
-              placeholder="Email"
+              placeholder="Email e.g john@doe.com"
               ref={email}
               required
               className={styles.loginInput}
             />
             <input
               type="password"
-              placeholder="Password"
+              placeholder="password e.g 123456"
               className={styles.loginInput}
               minLength="6"
               ref={password}

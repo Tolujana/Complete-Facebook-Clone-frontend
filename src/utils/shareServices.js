@@ -23,7 +23,5 @@ export const sharePost = async (e, newPost, file) => {
   try {
     await axiosInstance.post("/posts", newPost);
     window.location.reload();
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
